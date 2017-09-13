@@ -17,12 +17,12 @@ func pointers() {
 	fmt.Println(j) // see the new value of j
 
 	var jon *string
-	jon_str := "jon"
-	jon = &jon_str
-	fmt.Println(*jon)     // "jon"
-	fmt.Println(jon)      // 0xc42000e2b0
-	fmt.Println(jon_str)  // "jon"
-	fmt.Println(&jon_str) // 0xc42000e2b0
+	jonStr := "jon"
+	jon = &jonStr
+	fmt.Println(*jon)    // "jon"
+	fmt.Println(jon)     // 0xc42000e2b0
+	fmt.Println(jonStr)  // "jon"
+	fmt.Println(&jonStr) // 0xc42000e2b0
 }
 
 func structs() {
@@ -48,14 +48,53 @@ func structs() {
 	)
 
 	fmt.Println(v1, pointer, v2, v3)
-
 }
 
-//
+// The type [n]T is an array of n values of type T.
 func arrays() {
+	var a [2]string
+	a[0] = "Hello"
+	a[1] = "World"
+	fmt.Println(a[0], a[1])
+	fmt.Println(a)
+
+	primes := [6]int{2, 3, 5, 7, 11, 13}
+	fmt.Println(primes)
+}
+
+// Unlike arrays which have fixed sizes. A slice is dynamically-sized.
+func slices() {
+	primes := [6]int{2, 3, 5, 7, 11, 13}
+
+	var s []int
+	s = primes[1:4]
+	fmt.Println(s)
+}
+
+func slicesAreRefs() {
+	names := [4]string{
+		"Eugene",
+		"Tae",
+		"P",
+		"I",
+	}
+	fmt.Println(names)
+
+	a := names[0:2]
+	b := names[1:3]
+	c := names[0:4]
+	fmt.Println(a, b)
+	fmt.Println(c)
+
+	b[0] = "XXX" // This changes names[1]
+	fmt.Println(a, b)
+	fmt.Println(names)
 }
 
 func main() {
 	// pointers()
-	structs()
+	// structs()
+	// arrays()
+	// slices()
+	slicesAreRefs()
 }
