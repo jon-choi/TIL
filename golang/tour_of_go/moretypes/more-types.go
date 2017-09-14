@@ -114,11 +114,47 @@ func sliceLiterals() {
 	fmt.Println(s)
 }
 
+func sliceDefaults() {
+	s := []int{2, 3, 5, 7, 11, 13}
+
+	s = s[1:4]
+	fmt.Println(s)
+
+	s = s[:2]
+	fmt.Println(s)
+
+	s = s[1:]
+	fmt.Println(s)
+}
+
+func printSlice(s []int) {
+	fmt.Printf("len=%d cap=%d %v\n", len(s), cap(s), s)
+}
+
+// Length is number of elements the slice contains.
+// Capacity is number of elements in underlying array.
+func sliceLengthAndCapacity() {
+	s := []int{2, 3, 5, 7, 11, 13}
+	printSlice(s)
+
+	s = s[:0]
+	printSlice(s)
+
+	// You can exten a slice's length by re-slicing it, provided it has sufficient capacity.
+	s = s[:4] // len 4. cap 6
+	printSlice(s)
+
+	s = s[2:] // len 2. cap 4
+	printSlice(s)
+}
+
 func main() {
 	// pointers()
 	// structs()
 	// arrays()
 	// slices()
 	// slicesAreRefs()
-	sliceLiterals()
+	// sliceLiterals()
+	// sliceDefaults()
+	sliceLengthAndCapacity()
 }
