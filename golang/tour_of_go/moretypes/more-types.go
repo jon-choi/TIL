@@ -146,8 +146,19 @@ func sliceLengthAndCapacity() {
 
 	s = s[2:] // len 2. cap 4
 	printSlice(s)
+
+	// Adjusting end value decreases len and not cap.
+	// Adjusting starting value can drop both since it drops the values.
 }
 
+func nilSlice() {
+	// Zero value of a slice is nil, with 0 len and cap. No underlying array.
+	var s []int
+	fmt.Println(s, len(s), cap(s))
+	if s == nil {
+		fmt.Println("nil!")
+	}
+}
 func main() {
 	// pointers()
 	// structs()
@@ -156,5 +167,6 @@ func main() {
 	// slicesAreRefs()
 	// sliceLiterals()
 	// sliceDefaults()
-	sliceLengthAndCapacity()
+	// sliceLengthAndCapacity()
+	nilSlice()
 }
