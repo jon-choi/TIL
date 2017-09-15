@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 // A pointer holds he memeory address of a value.
 func pointers() {
@@ -159,6 +162,89 @@ func nilSlice() {
 		fmt.Println("nil!")
 	}
 }
+
+func makeSlice() {
+	a := make([]int, 5) // [0, 0, 0, 0, 0]
+	fmt.Println("a")
+	printSlice(a)
+
+	b := make([]int, 0, 5) // [] with cap 5
+	fmt.Println("b")
+	printSlice(b)
+
+	c := b[:2] // [0, 0] with cap 5
+	fmt.Println("c")
+	printSlice(c)
+
+	d := c[2:5] // [0, 0, 0] with cap 3 since we dropped from the front.
+	fmt.Println("d")
+	printSlice(d)
+}
+
+func sliceOfSlice() {
+	// Create a tic-tac-toe board.
+	board := [][]string{
+		[]string{"_", "_", "_"},
+		[]string{"_", "_", "_"},
+		[]string{"_", "_", "_"},
+	}
+
+	// Take turns playing.
+	board[0][0] = "X"
+	board[2][2] = "O"
+	board[1][2] = "X"
+	board[1][0] = "0"
+	board[0][2] = "X"
+
+	for i := 0; i < len(board); i++ {
+		fmt.Printf("%s\n", strings.Join(board[i], " "))
+	}
+}
+
+// More on slices: https://blog.golang.org/go-slices-usage-and-internals
+func appendToSlice() {
+
+	var s []int
+	printSlice(s)
+
+	// Append works on nil slices.
+	s = append(s, 0)
+	printSlice(s)
+
+	// Slice grows as needed.
+	s = append(s, 1)
+	printSlice(s)
+
+	// We can add multiple elements at the same time.
+	s = append(s, 2, 3, 4) // Why does cap grow more than len?
+	// https://stackoverflow.com/questions/38543825/appending-one-element-to-nil-slice-increases-capacity-by-two
+	printSlice(s)
+}
+
+func loopOverRange() {
+	pow := []int{1, 2, 4, 8, 16, 32, 64, 128}
+
+	// first is index, second is copy of the element at that index.
+	for i, v := range pow {
+		fmt.Printf("%d, %d\n", i, v)
+		fmt.Printf("2**%d = %d\n", i, v)
+	}
+
+}
+
+func moreRanges() {
+	new := make([]int, 10)
+	for i := range new {
+		fmt.Printf("before: %d is i. %d is new[i], and %v is new\n", i, new[i], new)
+		// Binary shift. https://stackoverflow.com/questions/5801008/go-and-operators
+		new[i] = 1 << uint(i) // == 2**i
+		fmt.Printf("after : %d is i. %d is new[i], and %v is new\n", i, new[i], new)
+	}
+	for _, value := range new {
+		fmt.Printf("%d\n", value)
+	}
+}
+
 func main() {
 	// pointers()
 	// structs()
@@ -168,5 +254,10 @@ func main() {
 	// sliceLiterals()
 	// sliceDefaults()
 	// sliceLengthAndCapacity()
-	nilSlice()
+	// nilSlice()
+	// makeSlice()
+	// sliceOfSlice()
+	// appendToSlice()
+	// loopOverRange()
+	moreRanges()
 }
