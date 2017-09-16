@@ -2,7 +2,8 @@ package main
 
 import (
 	"fmt"
-	"golang.org/x/tour/pic"
+	// "golang.org/x/tour/pic"
+	"golang.org/x/tour/wc"
 	"strings"
 )
 
@@ -258,6 +259,70 @@ func Pic(dx, dy int) [][]uint8 {
 	return sos
 }
 
+// Map keys to values.
+// Zero value is `nil`.
+func maps() {
+	type Vertex struct {
+		Lat, Long float64
+	}
+
+	m := make(map[string]Vertex)
+	m["Bell Labs"] = Vertex{
+		40.68433, -74.39967,
+	}
+	fmt.Println(m["Bell Labs"])
+}
+
+func mapLiterals() {
+	type Vertex struct {
+		Lat, Long float64
+	}
+
+	ml := map[string]Vertex{
+		// "Bell Labs": Vertex{
+		// 	40.68433, -74.39967,
+		// },
+		// "Google": Vertex{
+		// 	37.42202, -122.08408,
+		// },
+		"Bell Labs": {40.68433, -74.39967},
+		"Google":    {37.42202, -122.08408},
+	}
+	fmt.Println(ml)
+	fmt.Println(ml["Bell Labs"].Lat)
+	fmt.Println(ml["Bell Labs"].Long)
+	ml["Potrero Hill"] = Vertex{10.000, 20.000}
+	fmt.Println(ml)
+	fmt.Println(ml["Potrero Hill"].Lat)
+}
+
+func mutateMaps() {
+	m := make(map[string]int)
+
+	m["Answer"] = 10
+	fmt.Println(m["Answer"])
+
+	m["Answer"] = 15
+	fmt.Println(m["Answer"])
+
+	delete(m, "Answer")
+	fmt.Println(m["Answer"])
+
+	v, ok := m["Answer"]
+	fmt.Println("The value:", v, "Present?", ok)
+}
+
+// WordCount ...
+func WordCount(s string) map[string]int {
+	wc := make(map[string]int)
+	// separate string by word as array.
+	words := strings.Fields(s)
+	for _, word := range words {
+		wc[word]++
+	}
+	return wc
+}
+
 func main() {
 	// pointers()
 	// structs()
@@ -273,5 +338,9 @@ func main() {
 	// appendToSlice()
 	// loopOverRange()
 	// moreRanges()
-	pic.Show(Pic)
+	// pic.Show(Pic)
+	// maps()
+	// mapLiterals()
+	// mutateMaps()
+	wc.Test(WordCount)
 }
