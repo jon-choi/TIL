@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"golang.org/x/tour/pic"
 	"strings"
 )
 
@@ -245,6 +246,18 @@ func moreRanges() {
 	}
 }
 
+// Pic ... Exercise.
+func Pic(dx, dy int) [][]uint8 {
+	sos := make([][]uint8, dy)
+	for s := range sos {
+		sos[s] = make([]uint8, dx)
+		for v := range sos[s] {
+			sos[s][v] = uint8(s * v)
+		}
+	}
+	return sos
+}
+
 func main() {
 	// pointers()
 	// structs()
@@ -259,5 +272,6 @@ func main() {
 	// sliceOfSlice()
 	// appendToSlice()
 	// loopOverRange()
-	moreRanges()
+	// moreRanges()
+	pic.Show(Pic)
 }
